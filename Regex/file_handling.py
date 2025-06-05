@@ -1,19 +1,6 @@
 import re
 from pathlib import Path
-import logging
-import sys
 
-# Set up logging
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ]
-)
-logger = logging.getLogger(__name__)
 
 images = [
     Path("images/12345_image.jpg"),
@@ -34,7 +21,7 @@ for image_path in images:
         match = re.match(r'^(\d+)([^\d]*)(\d*)$', original_name)
 
         if not match:
-            logger.warning(f"Could not parse PLU from filename: {original_name}")
+            print(f"Could not parse PLU from filename: {original_name}")
             
     except Exception as e:
-        logger.error(f"Failed to rename {image_path}: {str(e)}")
+        print(f"Failed to rename {image_path}: {str(e)}")
