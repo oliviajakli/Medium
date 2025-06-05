@@ -1,3 +1,7 @@
+# Author: Olivia Jákli
+# Example #1 for Medium article on real-world use cases for regular expressions.
+# User is used to input a Coordinate Reference System (CRS) in the format "EPSG:XXXX" 
+# where XXXX is a 4-digit number.
 import re
 
 usr_in = input("Enter CRS: ").strip()
