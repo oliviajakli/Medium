@@ -1,5 +1,6 @@
 # Author: Olivia Jákli
-# Example #3 for Medium article on real-world use cases for regular expressions.
+# Example #3
+# Clean a product description by removing HTML tags and character entities, and special characters.
 import re
 
 product_description = """

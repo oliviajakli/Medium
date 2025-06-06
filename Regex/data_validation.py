@@ -1,6 +1,6 @@
 # Author: Olivia Jákli
-# Example #1 for Medium article on real-world use cases for regular expressions.
-# User is used to input a Coordinate Reference System (CRS) in the format "EPSG:XXXX" 
+# Example #1
+# User inputs a Coordinate Reference System (CRS) in the format "EPSG:XXXX", 
 # where XXXX is a 4-digit number.
 import re
 
@@ -11,4 +11,5 @@ crs_pattern = r"^EPSG:\d{4}$"
 if re.match(crs_pattern, usr_in):
     print("Valid CRS format.")
 else:
-    print("Invalid CRS format. Please enter in the format 'EPSG:XXXX' where XXXX is a 4-digit number.")
+    print("Invalid CRS format. Please enter in the format 'EPSG:XXXX' " \
+    "where XXXX is a 4-digit number.")
