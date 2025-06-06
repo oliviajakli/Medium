@@ -1,3 +1,7 @@
+# Author: Olivia Jákli
+# Example #2 for Medium article on real-world use cases for regular expressions.
+# This script renames image files based on their PLU (Price Look-Up) codes and optional count numbers.
+
 import re
 from pathlib import Path
 
