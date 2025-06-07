@@ -7,7 +7,7 @@ import re
 usr_in = input("Enter CRS: ").strip()
 
 # Regular expression to match the CRS format
-crs_pattern = r"^EPSG:\d{4}$"
+crs_pattern = r"EPSG:\d{4}$"
 if re.match(crs_pattern, usr_in):
     print("Valid CRS format.")
 else:
