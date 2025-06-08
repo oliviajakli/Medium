@@ -24,34 +24,28 @@ product_names_dict = {
 for image_path in images:
     
     original_name = image_path.stem
-    
+    # Use regex to extract PLU and optional count numbers.
+    # This pattern looks for digits at the start of the filename (SKU),
+    # followed by optional non-digit characters, then optional digits (count).
+    match = re.fullmatch(r'(\d{5})(-\d)?', original_name)
+
+    if not match:
+        print(f"Could not parse SKU from filename: {original_name}")
+        continue
+    sku, count = match.groups()
+
+    if sku in product_names_dict:
+        product_name = product_names_dict[sku].replace(" ", "-") 
+    else:
+        product_name = "Unknown-Product"
+    if count:
+        new_name = f"{sku}-{product_name}{count}{image_path.suffix}"
+    else:
+        new_name = f"{sku}-{product_name}{image_path.suffix}"
     # Check if the original name is in the product names dictionary
 
-    try:
 
-        # Use regex to extract PLU and optional count numbers.
-        # This pattern looks for digits at the start of the filename (SKU),
-        # followed by optional non-digit characters, then optional digits (count).
-        match = re.fullmatch(r'(\d{5})-(\d?)', original_name)
-
-        if not match:
-            print(f"Could not parse SKU from filename: {original_name}")
-            continue
-        sku, count = match.groups()
-
-        if sku in product_names_dict:
-            product_name = product_names_dict[sku].replace(" ", "-") 
-        else:
-            product_name = "Unknown-Product"
-        if count:
-            new_name = f"{sku}-{product_name}-{count}.{image_path.suffix}"
-        else:
-            new_name = f"{sku}-{product_name}.{image_path.suffix}"
-
-    except Exception as e:
-        print(f"Failed to rename {image_path}: {str(e)}")
-    else:
-        new_path = image_path.parent / new_name
-        print(f"Renaming {image_path} to {new_path}")
-        image_path.rename(new_path)
+    new_path = image_path.parent / new_name
+    print(f"Renaming {image_path} to {new_path}")
+    image_path.rename(new_path)
     
