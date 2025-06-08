@@ -1,7 +1,6 @@
 # Author: Olivia Jákli
 # Example #4
 # Extract product titles from a webpage using regex.
-
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -11,7 +10,7 @@ soup = BeautifulSoup(page.content, 'html.parser')
 products = soup.find_all('div', class_='product-infos')
 content = str(page.content)
 
-title_pattern = r'class="product-name">(.*?)<\/h4>'
+title_pattern = r'class="product-name">(.*?)<\/h2>'
 titles = re.findall(title_pattern, content)
 
 with open('product_titles.txt', 'w') as file:
