@@ -13,7 +13,7 @@ log = """
 2025-01-01 10:36:00 INFO: System rebooted
 """
 
-if re.search(r'ERROR.*connection', log, re.IGNORECASE):
-    print("An error related to connection was found in the log.")
+if re.search(r'ERROR.+connection', log, re.IGNORECASE):
+    print("An error related to connection was found.")
 else:
-    print("No connection-related errors found in the log.")
+    print("No connection-related errors found.")
