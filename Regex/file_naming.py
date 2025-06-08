@@ -32,6 +32,7 @@ for image_path in images:
     if not match:
         print(f"Could not parse SKU from filename: {original_name}")
         continue
+
     sku, count = match.groups()
 
     if sku in product_names_dict:
@@ -42,10 +43,7 @@ for image_path in images:
         new_name = f"{sku}-{product_name}{count}{image_path.suffix}"
     else:
         new_name = f"{sku}-{product_name}{image_path.suffix}"
-    # Check if the original name is in the product names dictionary
-
-
+    # Create new path with the updated name.
     new_path = image_path.parent / new_name
     print(f"Renaming {image_path} to {new_path}")
     image_path.rename(new_path)
-    
