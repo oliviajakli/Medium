@@ -14,5 +14,5 @@ log = """
 2025-01-01 10:37:15 ERROR: SSL connection failed
 """
 
-if re.search(r'ERROR.*connection', log):
+if re.search(r'ERROR.*connection', log, re.IGNORECASE):
     print("An error related to connection was found in the log.")
