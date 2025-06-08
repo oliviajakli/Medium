@@ -1,30 +1,57 @@
 # Author: Olivia Jákli
 # Example #2
-# Rename image files based on their PLU (Price Look-Up) codes and optional count numbers.
+# Rename image files based on their SKU and optional count numbers.
 import re
 from pathlib import Path
 
 
 images = [
-    Path("images/12345_image.jpg"),
-    Path("images/67890_image.png"),
-    Path("images/12345_2_image.jpg"),
-    Path("images/invalid_image.txt"),
-    Path("images/12345_invalid.jpg")
+    Path("images/12345.jpg"),
+    Path("images/67890-1.png"),
+    Path("images/67890-2.png"),
+    Path("images/12121-1.webp"),
+    Path("images/12121-2.webp"),
+    Path("images/12121-3.webp")
 ]
 
+product_names_dict = {
+    "12345": "Red Sweater",
+    "67890": "Blue Jeans",
+    "12121": "Black Tank Top"
+}
+
+
 for image_path in images:
+    
+    original_name = image_path.stem
+    
+    # Check if the original name is in the product names dictionary
+
     try:
-        # Extract PLU and potential count from filename (without extension)
-        original_name = image_path.stem
 
         # Use regex to extract PLU and optional count numbers.
-        # This pattern looks for digits at the start of the filename (PLU),
+        # This pattern looks for digits at the start of the filename (SKU),
         # followed by optional non-digit characters, then optional digits (count).
-        match = re.match(r'^(\d+)([^\d]*)(\d*)$', original_name)
+        match = re.fullmatch(r'(\d{5})-(\d?)', original_name)
 
         if not match:
-            print(f"Could not parse PLU from filename: {original_name}")
-            
+            print(f"Could not parse SKU from filename: {original_name}")
+            continue
+        sku, count = match.groups()
+
+        if sku in product_names_dict:
+            product_name = product_names_dict[sku].replace(" ", "-") 
+        else:
+            product_name = "Unknown-Product"
+        if count:
+            new_name = f"{sku}-{product_name}-{count}.{image_path.suffix}"
+        else:
+            new_name = f"{sku}-{product_name}.{image_path.suffix}"
+
     except Exception as e:
         print(f"Failed to rename {image_path}: {str(e)}")
+    else:
+        new_path = image_path.parent / new_name
+        print(f"Renaming {image_path} to {new_path}")
+        image_path.rename(new_path)
+    
